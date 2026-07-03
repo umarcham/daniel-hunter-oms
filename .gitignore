@@ -1,0 +1,46 @@
+# ========================
+# SECRETS — NEVER COMMIT
+# ========================
+.env
+GOOGLE_APPLICATION_CREDENTIALS.json
+*.json.key
+
+# ========================
+# DATABASE FILES
+# ========================
+eluno.db
+db.json
+
+# ========================
+# PYTHON
+# ========================
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ========================
+# MACOS
+# ========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ========================
+# IDE & EDITOR
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ========================
+# LOGS
+# ========================
+*.log

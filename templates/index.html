@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Daniel Hunter Luxury Eyewear Order Operations Engine - AI-Powered Order Management, SLA Breach Prediction and Lens Inventory Matrix.">
+    <title>Operations Console | Daniel Hunter Eyewear</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Chart.js for premium analytics graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Announcement Bar & Simulated Clock -->
+    <div class="announcement-bar">
+        <span>Daniel Hunter Operations Engine — Confidential Internal Access Only</span>
+        <div class="clock-container">
+            <span class="pulse-dot"></span>
+            <strong>SIMULATED SYSTEM CLOCK:</strong>
+            <span id="virtual-clock">Loading Clock...</span>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="logo-section">
+            <span class="logo-title">DANIEL HUNTER</span>
+            <span class="logo-subtitle">Prescription Eyewear Operations</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn-primary-luxury" id="btn-open-create-modal">
+                Intake New Order
+            </button>
+        </div>
+    </header>
+
+    <!-- Dashboard Main Grid -->
+    <main class="dashboard-container">
+
+        <!-- Left Main Area (Metrics & Tables) -->
+        <div class="main-content">
+
+            <!-- KPIs Row -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Active Orders</span>
+                    <span class="stat-value" id="kpi-active-orders">--</span>
+                    <span class="stat-meta" id="kpi-active-orders-sub">In process in laboratory</span>
+                </div>
+                <div class="stat-card alert-stat">
+                    <span class="stat-label">SLA Breach Rate</span>
+                    <span class="stat-value" id="kpi-breach-rate">--%</span>
+                    <span class="stat-meta" id="kpi-breach-rate-sub">Active orders breached or at risk</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">In-House Sourcing</span>
+                    <span class="stat-value" id="kpi-sourcing-ratio">--%</span>
+                    <span class="stat-meta">Allocated directly from inventory</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">QC Pass Rate</span>
+                    <span class="stat-value" id="kpi-qc-pass-rate">--%</span>
+                    <span class="stat-meta" id="kpi-qc-pass-rate-sub">Passed quality controls</span>
+                </div>
+            </section>
+
+            <!-- Active Orders Board -->
+            <section class="panel-card" id="orders-panel">
+                <div class="panel-title-area">
+                    <div>
+                        <h2 class="panel-title">Active Orders Lifecycle Dashboard</h2>
+                        <p class="panel-subtitle">Manage operations through laboratory processing, custom coatings, and
+                            quality control.</p>
+                    </div>
+                </div>
+
+                <!-- Filters & Search -->
+                <div class="filters-bar">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" id="search-box" placeholder="Search customer, ID...">
+                    </div>
+                    <div class="filter-selects">
+                        <select class="filter-select" id="filter-status">
+                            <option value="">All Stages</option>
+                            <option value="Order Placed">Order Placed</option>
+                            <option value="Lens Sourcing">Lens Sourcing</option>
+                            <option value="Lab Processing">Lab Processing</option>
+                            <option value="Coating">Coating</option>
+                            <option value="QC Check">QC Check</option>
+                            <option value="Ready for Dispatch">Ready for Dispatch</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                        <select class="filter-select" id="filter-lens-type">
+                            <option value="">All Lens Types</option>
+                            <option value="Single Vision">Single Vision (48h SLA)</option>
+                            <option value="Bifocal">Bifocal (96h SLA)</option>
+                            <option value="Progressive">Progressive (120h SLA)</option>
+                        </select>
+                        <select class="filter-select" id="filter-store">
+                            <option value="">All Store Locations</option>
+                            <option value="Bandra Store">Bandra Store</option>
+                            <option value="Colaba Store">Colaba Store</option>
+                            <option value="Juhu Store">Juhu Store</option>
+                            <option value="Online Store">Online Store</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="table-wrapper">
+                    <table class="luxury-table" id="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer & Source</th>
+                                <th>Specification</th>
+                                <th>Sourcing Status</th>
+                                <th>Stage</th>
+                                <th>SLA Countdown</th>
+                                <th>AI TAT Prediction</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Lens Inventory Matrix -->
+            <section class="panel-card inventory-section">
+                <div class="panel-title-area">
+                    <div>
+                        <h2 class="panel-title">In-House Lens Power Inventory Matrix</h2>
+                        <p class="panel-subtitle">Physical stock distribution for Spherical (SPH) and Cylindrical (CYL)
+                            prescription lenses.</p>
+                    </div>
+                </div>
+
+                <div class="inventory-grid-layout">
+                    <!-- Left Column: Table and Legend -->
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="matrix-legend">
+                            <div class="legend-item">
+                                <div class="legend-color legend-in-house"></div>
+                                <span>In House Range (Available)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-low-stock"></div>
+                                <span>Low Stock (&lt; 3 Units)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-out-of-house"></div>
+                                <span>Out of House / Sourced</span>
+                            </div>
+                        </div>
+
+                        <div class="grid-outer-wrapper">
+                            <table class="matrix-table" id="inventory-matrix-table">
+                                <!-- Loaded dynamically -->
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Insights & Guidelines -->
+                    <div class="inventory-insights-panel">
+                        <div class="insight-card-header">
+                            <span class="insight-card-title">Stock Insights & Guidelines</span>
+                        </div>
+
+                        <div class="insight-stats-row">
+                            <div class="insight-stat">
+                                <span class="insight-stat-value" id="inv-total-units">--</span>
+                                <span class="insight-stat-label">Total Stock Units</span>
+                            </div>
+                            <div class="insight-stat warning-stat">
+                                <span class="insight-stat-value" id="inv-low-stock-count">--</span>
+                                <span class="insight-stat-label">Low Stock Warnings</span>
+                            </div>
+                        </div>
+
+                        <div class="inventory-rules-summary">
+                            <h4 class="rules-title">Laboratory Supply Rules</h4>
+                            <ul class="rules-list">
+                                <li><strong>Standard:</strong> SPH -6.00 to +4.00 | CYL -2.00 to 0.00</li>
+                                <li><strong>Index Bounds:</strong> 1.56, 1.61 (1.67, 1.74 external)</li>
+                                <li><strong>Coatings:</strong> In-house anti-reflective (Premium sourced)</li>
+                            </ul>
+                        </div>
+
+                        <div class="quick-restock-helper">
+                            <h4 class="helper-title">Action Center</h4>
+                            <p class="helper-text">Click any cell in the inventory grid to update stock level or record
+                                a vendor reorder transaction.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Right Column (Simulator & Alerts Feed) -->
+        <aside class="sidebar">
+
+            <!-- Time Simulation Console -->
+            <div class="control-console panel-card">
+                <h2 class="console-title">
+                    <span>Simulation Desk</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                </h2>
+
+                <div class="time-advancer">
+                    <span class="stat-label" style="color: rgba(255,255,255,0.7)">Fast-Forward Virtual Time</span>
+                    <div class="advancer-buttons">
+                        <button class="btn-console" onclick="advanceSimTime(6)">+6 Hours</button>
+                        <button class="btn-console" onclick="advanceSimTime(24)">+24 Hours</button>
+                    </div>
+                </div>
+
+                <div class="bottleneck-toggles">
+                    <span class="stat-label"
+                        style="color: rgba(255,255,255,0.7); margin-bottom: 8px; display: block;">Simulate Lab
+                        Bottlenecks</span>
+
+                    <label class="toggle-label">
+                        <span>Courier & Sourcing Delays</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="toggle-sourcing-delay"
+                                onchange="toggleBottleneck('is_bottleneck_sourcing')">
+                            <span class="slider"></span>
+                        </div>
+                    </label>
+
+                    <label class="toggle-label">
+                        <span>Laboratory Edging Backup</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="toggle-lab-delay"
+                                onchange="toggleBottleneck('is_bottleneck_lab')">
+                            <span class="slider"></span>
+                        </div>
+                    </label>
+
+                    <label class="toggle-label">
+                        <span>Coating Equipment Capacity</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="toggle-coating-delay"
+                                onchange="toggleBottleneck('is_bottleneck_coating')">
+                            <span class="slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Real-Time Alerts Panel -->
+            <div class="alerts-board panel-card">
+                <h2 class="panel-title"
+                    style="font-size: 1.2rem; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Operations Alert Feed</span>
+                    <span id="alerts-count-badge" class="badge badge-sourced">0 Alerts</span>
+                </h2>
+                <p class="panel-subtitle" style="margin-top:-10px;">Simulated email and WhatsApp notifications pushed to
+                    dispatch and management.</p>
+                <div class="alerts-feed" id="alerts-feed-container">
+                    <!-- Populated dynamically -->
+                    <div style="text-align: center; color: var(--text-secondary); font-size: 0.8rem; padding: 20px;">
+                        No active alerts logged.
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Modal 1: Create Order Modal -->
+    <div class="modal-overlay" id="create-order-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('create-order-modal')">&times;</button>
+            <h2 class="modal-title">Intake Prescription Order</h2>
+
+            <form id="create-order-form" onsubmit="submitNewOrder(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-customer-name">Customer Name</label>
+                        <input type="text" class="form-control" id="order-customer-name" required
+                            placeholder="e.g. John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-store-location">Retail Outlet</label>
+                        <select class="form-control" id="order-store-location" required>
+                            <option value="Bandra Store">Bandra Store</option>
+                            <option value="Colaba Store">Colaba Store</option>
+                            <option value="Juhu Store">Juhu Store</option>
+                            <option value="Online Store">Online Store</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-lens-type">Lens Type & SLA</label>
+                        <select class="form-control" id="order-lens-type" required>
+                            <option value="Single Vision">Single Vision (48 Hour SLA)</option>
+                            <option value="Bifocal">Bifocal (96 Hour SLA)</option>
+                            <option value="Progressive">Progressive (120 Hour SLA)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-frame-model">Eyewear Frame Selection</label>
+                        <select class="form-control" id="order-frame-model" required>
+                            <option value="Emerald-5">Emerald-5 (Round Gold/Green - $180)</option>
+                            <option value="Astro-3">Astro-3 (Square Dark Navy - $245)</option>
+                            <option value="Maestro-1">Maestro-1 (Square Matte Black - $185)</option>
+                            <option value="Vassili-1">Vassili-1 (Geometric Gold - $178)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-lens-index">Lens Material Index</label>
+                        <select class="form-control" id="order-lens-index" onchange="runLivePrescriptionValidation()"
+                            required>
+                            <option value="1.56">1.56 Regular (In-House)</option>
+                            <option value="1.61">1.61 Thin (In-House)</option>
+                            <option value="1.67">1.67 Super-Thin (Sourced)</option>
+                            <option value="1.74">1.74 Ultra-Thin (Sourced)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-coating">Surface Coating</label>
+                        <select class="form-control" id="order-coating" onchange="runLivePrescriptionValidation()"
+                            required>
+                            <option value="None">None Standard (In-House)</option>
+                            <option value="Anti-Reflective">Anti-Reflective Premium (In-House)</option>
+                            <option value="Blue Cut">Blue Cut Filter (Sourced)</option>
+                            <option value="Photochromic">Transition Photochromic (Sourced)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Prescription Section with Live In-House validation check -->
+                <div class="rx-section">
+                    <h3 class="rx-title">Ophthalmic Prescription Details</h3>
+
+                    <div class="rx-grid-header">
+                        <div>Eye</div>
+                        <div>SPH (Spherical)</div>
+                        <div>CYL (Cylindrical)</div>
+                        <div>Axis</div>
+                    </div>
+
+                    <div class="rx-grid" style="margin-bottom: 8px;">
+                        <div class="eye-label">R. Eye (OD)</div>
+                        <div>
+                            <input type="number" step="0.25" class="form-control" id="rx-sph-od" value="0.00"
+                                onchange="runLivePrescriptionValidation()" required>
+                        </div>
+                        <div>
+                            <input type="number" step="0.25" class="form-control" id="rx-cyl-od" value="0.00"
+                                onchange="runLivePrescriptionValidation()" required>
+                        </div>
+                        <div>
+                            <input type="number" step="1" class="form-control" id="rx-axis-od" value="0" min="0"
+                                max="180" required>
+                        </div>
+                    </div>
+
+                    <div class="rx-grid">
+                        <div class="eye-label">L. Eye (OS)</div>
+                        <div>
+                            <input type="number" step="0.25" class="form-control" id="rx-sph-os" value="0.00"
+                                onchange="runLivePrescriptionValidation()" required>
+                        </div>
+                        <div>
+                            <input type="number" step="0.25" class="form-control" id="rx-cyl-os" value="0.00"
+                                onchange="runLivePrescriptionValidation()" required>
+                        </div>
+                        <div>
+                            <input type="number" step="1" class="form-control" id="rx-axis-os" value="0" min="0"
+                                max="180" required>
+                        </div>
+                    </div>
+
+                    <!-- Live availability banner inside form -->
+                    <div class="live-validation-result" id="rx-live-validation-banner">
+                        Checking prescription compatibility...
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
+                    <button type="button" class="btn-primary-luxury"
+                        style="border-color: var(--border-color); color: var(--text-secondary)"
+                        onclick="closeModal('create-order-modal')">Cancel</button>
+                    <button type="submit" class="btn-primary-luxury"
+                        style="background: var(--brand-dark); color: var(--text-light)">Register Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Update Stage & Timeline Details Modal -->
+    <div class="modal-overlay" id="status-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('status-modal')">&times;</button>
+            <h2 class="modal-title">Order Fulfillment Timeline</h2>
+
+            <div id="status-modal-loading" style="text-align: center; padding: 20px;">
+                Fulfilling operational details...
+            </div>
+
+            <div id="status-modal-content" style="display: none;">
+                <!-- AI prediction block -->
+                <div class="ai-prediction-panel">
+                    <div class="ai-header">
+                        <span class="ai-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="margin-bottom:-2px;">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                            AI SLA Operations Analysis
+                        </span>
+                        <span class="ai-source-badge" id="ai-pred-source">GCP Vertex AI</span>
+                    </div>
+                    <div class="prediction-stats">
+                        <div class="p-stat">
+                            <span class="p-label">Estimated Remaining Time</span>
+                            <span class="p-val" id="ai-pred-remaining">-- Hours</span>
+                        </div>
+                        <div class="p-stat">
+                            <span class="p-label">Breach Risk Probability</span>
+                            <span class="p-val" id="ai-pred-probability">--%</span>
+                        </div>
+                    </div>
+                    <div class="ai-reasoning" id="ai-pred-reasoning">
+                        Analyzing queue times, supplier courier delays, lab bottleneck status, and prescription
+                        thickness...
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <div>
+                        <strong
+                            style="font-size:0.75rem; text-transform:uppercase; color: var(--text-secondary)">Customer</strong>
+                        <p id="detail-customer-name"
+                            style="font-size:1.1rem; font-family: var(--font-heading); margin-top:2px;">--</p>
+                    </div>
+                    <div>
+                        <strong style="font-size:0.75rem; text-transform:uppercase; color: var(--text-secondary)">Order
+                            ID / Frame</strong>
+                        <p id="detail-order-id-frame" style="font-size:1rem; margin-top:2px;">--</p>
+                    </div>
+                </div>
+
+                <!-- Update Status Form -->
+                <form id="update-status-form" onsubmit="submitStatusUpdate(event)"
+                    style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <input type="hidden" id="update-order-id">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="update-stage-select">Transition Stage</label>
+                            <select class="form-control" id="update-stage-select" onchange="handleStageSelectChange()"
+                                required>
+                                <option value="Order Placed">Order Placed</option>
+                                <option value="Lens Sourcing">Lens Sourcing</option>
+                                <option value="Lab Processing">Lab Processing</option>
+                                <option value="Coating">Coating</option>
+                                <option value="QC Check">QC Check</option>
+                                <option value="QC Failed">QC Failed (Reject & Loop to Lab)</option>
+                                <option value="Ready for Dispatch">Ready for Dispatch</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-delay-reason">Delay / QC Defect Reason</label>
+                            <input type="text" class="form-control" id="update-delay-reason"
+                                placeholder="Require explanation if delayed or QC fails">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 12px; margin-bottom: 24px;">
+                        <button type="submit" class="btn-primary-luxury"
+                            style="background: var(--brand-dark); color: var(--text-light); width:100%">Commit Stage
+                            Transition</button>
+                    </div>
+                </form>
+
+                <!-- Status History Timeline -->
+                <strong style="font-size:0.75rem; text-transform:uppercase; color: var(--text-secondary)">Process
+                    History logs</strong>
+                <div class="timeline" id="detail-timeline-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restock Inventory Matrix Modal -->
+    <div class="modal-overlay" id="restock-modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <button class="modal-close" onclick="closeModal('restock-modal')">&times;</button>
+            <h2 class="modal-title">Inventory Restock</h2>
+            <form id="restock-form" onsubmit="submitRestock(event)">
+                <input type="hidden" id="restock-cell-key">
+                <div class="form-group">
+                    <label id="restock-cell-label">Selected Lens Power</label>
+                    <input type="number" class="form-control" id="restock-quantity" min="0" required>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                    <button type="button" class="btn-primary-luxury"
+                        style="border-color: var(--border-color); color: var(--text-secondary)"
+                        onclick="closeModal('restock-modal')">Cancel</button>
+                    <button type="submit" class="btn-primary-luxury"
+                        style="background: var(--brand-dark); color: var(--text-light)">Update Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
