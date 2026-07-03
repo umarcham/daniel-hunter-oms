@@ -38,14 +38,20 @@
 
 <div align="center">
 
-### Orders & SLA Dashboard
-![Dashboard showing active orders, SLA countdowns and AI predictions](https://via.placeholder.com/900x500/0d0d0d/c9a84c?text=Active+Orders+%7C+SLA+Lifecycle+Dashboard)
+### Orders & SLA Lifecycle Dashboard
+*Active orders board with KPI metrics, SLA countdowns, AI TAT predictions, and the Operations Alert Feed*
 
-### Lens Power Inventory Matrix
-![2D SPH/CYL inventory grid with color-coded stock levels](https://via.placeholder.com/900x400/0d0d0d/c9a84c?text=In-House+Lens+Power+Inventory+Matrix)
+![Active Orders Lifecycle Dashboard — KPIs, SLA countdowns, AI predictions and alert feed](images/dashboard.png)
 
-### Simulation Desk & Alerts
-![Simulation desk with virtual clock, bottleneck toggles and alert feed](https://via.placeholder.com/900x400/0d0d0d/c9a84c?text=Simulation+Desk+%7C+Operations+Alert+Feed)
+### In-House Lens Power Inventory Matrix
+*2D SPH × CYL grid with real-time stock health colour coding and stock insights panel*
+
+![In-House Lens Power Inventory Matrix — 2D SPH/CYL grid with stock insights](images/inventory.png)
+
+### Simulation Desk & Operations Alert Feed
+*Virtual clock fast-forward controls, lab bottleneck toggles, and live WhatsApp/Email alert stream*
+
+![Simulation Desk and Operations Alert Feed — bottleneck toggles and breach notifications](images/simulator.png)
 
 </div>
 
